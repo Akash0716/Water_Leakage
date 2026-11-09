@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Academic Project Report - AquaReport</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm 12mm 15mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.5;
+    font-size: 9.8pt;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+  }
+
+  /* Page Shell Container */
+  .report-page {
+    width: 100%;
+    min-height: 268mm;
+    max-height: 272mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .report-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* Header & Footer */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+    color: #64748b;
+    border-bottom: 1.5px solid #0284c7;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .page-header .brand {
+    color: #0284c7;
+    font-weight: 800;
+  }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8pt;
+    color: #64748b;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 5px;
+    margin-top: 12px;
+  }
+
+  .page-footer .pg-num {
+    font-weight: 700;
+    color: #0284c7;
+  }
+
+  .page-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Typography */
+  h2 {
+    font-size: 13.5pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 12px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #e0f2fe;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h2:first-child {
+    margin-top: 0;
+  }
+
+  h2 .sec-num {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 9.5pt;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 800;
+  }
+
+  h3 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #0369a1;
+    margin: 10px 0 5px 0;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    text-align: justify;
+    line-height: 1.55;
+  }
+
+  ul, ol {
+    margin: 0 0 10px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+    line-height: 1.45;
+  }
+
+  code {
+    background: #f1f5f9;
+    color: #0369a1;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 8.8pt;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Cards & Callouts */
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  .card-primary {
+    border-left: 4px solid #0284c7;
+    background: #f0f9ff;
+  }
+
+  .card-warning {
+    border-left: 4px solid #f59e0b;
+    background: #fffbeb;
+  }
+
+  .card-success {
+    border-left: 4px solid #10b981;
+    background: #ecfdf5;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 8px 0;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .stat-card .val {
+    font-size: 15pt;
+    font-weight: 800;
+    color: #0284c7;
+  }
+
+  .stat-card .lbl {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 9pt;
+  }
+
+  th {
+    background: #0f172a;
+    color: #ffffff;
+    text-align: left;
+    padding: 6px 9px;
+    font-weight: 700;
+    font-size: 8.5pt;
+    letter-spacing: 0.3px;
+  }
+
+  td {
+    padding: 6px 9px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .badge-pass {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    border: 1px solid #bbf7d0;
+  }
+
+  /* Cover Page Custom Styling */
+  .cover-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 32%, #f8fafc 100%);
+    border: 2px solid #0284c7;
+    border-top: 8px solid #0284c7;
+    border-radius: 8px;
+    padding: 18px 22px;
+  }
+
+  .cover-header {
+    text-align: center;
+    border-bottom: 2px solid #0284c7;
+    padding-bottom: 12px;
+  }
+
+  .cover-inst-name {
+    font-size: 19pt;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .cover-dept {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: #0369a1;
+    margin-top: 4px;
+  }
+
+  .cover-affil {
+    font-size: 8.8pt;
+    color: #64748b;
+    margin-top: 3px;
+  }
+
+  .cover-emblem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px auto;
+  }
+
+  .cover-title-container {
+    text-align: center;
+    margin: 6px 0;
+  }
+
+  .report-badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 14px;
+    border-radius: 16px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border: 1px solid #bae6fd;
+    margin-bottom: 8px;
+  }
+
+  .cover-title {
+    font-size: 17.5pt;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.3;
+    margin: 4px 0;
+    text-transform: uppercase;
+  }
+
+  .cover-app-name {
+    font-size: 13.5pt;
+    font-weight: 700;
+    color: #0284c7;
+  }
+
+  .sdg-badge-cover {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0284c7;
+    color: #ffffff;
+    padding: 5px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 8.8pt;
+    margin-top: 10px;
+  }
+
+  .cover-fulfillment {
+    text-align: center;
+    font-size: 8.8pt;
+    color: #475569;
+    font-style: italic;
+    max-width: 500px;
+    margin: 8px auto;
+    line-height: 1.4;
+  }
+
+  .metadata-card {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    margin: 8px 0;
+  }
+
+  .metadata-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    row-gap: 6px;
+    font-size: 9.5pt;
+  }
+
+  .metadata-label {
+    font-weight: 700;
+    color: #475569;
+  }
+
+  .metadata-value {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  .cover-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: #64748b;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+
+  /* Table of Contents */
+  .toc-container {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 8px 0;
+  }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    font-size: 9pt;
+  }
+
+  .toc-item:last-child {
+    border-bottom: none;
+  }
+
+  .toc-title {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .toc-dots {
+    flex-grow: 1;
+    margin: 0 8px;
+    border-bottom: 1px dotted #94a3b8;
+  }
+
+  .toc-num {
+    font-weight: 700;
+    color: #0284c7;
+    font-size: 8.5pt;
+  }
+
+  /* Signatures Grid */
+  .sign-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 25px;
+    text-align: center;
+  }
+
+  .sign-box {
+    border-top: 1.5px dashed #94a3b8;
+    padding-top: 6px;
+    font-size: 8.5pt;
+  }
+
+  .sign-title {
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  .sign-sub {
+    color: #64748b;
+    font-size: 7.8pt;
+    margin-top: 2px;
+  }
+
+  /* Workflow & Diagrams */
+  .diagram-container {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 8px 0;
+  }
+
+  .flow-step {
+    background: #ffffff;
+    border: 1px solid #0284c7;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin: 4px 0;
+    font-size: 8.5pt;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .flow-step .num {
+    background: #0284c7;
+    color: #ffffff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 7.5pt;
+    flex-shrink: 0;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: #0284c7;
+    font-weight: bold;
+    font-size: 10pt;
+    line-height: 1;
+    margin: -1px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1: COVER PAGE ================= -->
+<div class="report-page">
+  <div class="cover-container">
+    <div class="cover-header">
+      <div class="cover-inst-name">Vishnu Institute Of Technology</div>
+      <div class="cover-dept">Department of Computer Science & Engineering</div>
+      <div class="cover-affil">Affiliated to JNTUK • Approved by AICTE • Accredited by NAAC & NBA</div>
+    </div>
+
+    <div class="cover-emblem">
+      <svg width="95" height="95" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="56" stroke="#0284c7" stroke-width="3" stroke-dasharray="6 4" fill="#f0f9ff"/>
+        <circle cx="60" cy="60" r="48" fill="#e0f2fe"/>
+        <path d="M60 26 C60 26 38 52 38 68 C38 80.15 47.85 90 60 90 C72.15 90 82 80.15 82 68 C82 52 60 26 60 26Z" fill="#0284c7"/>
+        <path d="M52 62 C52 56 56 50 62 46 C60 48 56 53 56 59 C56 65 60 69 60 69 C56 69 52 65 52 62Z" fill="#ffffff" opacity="0.6"/>
+        <circle cx="60" cy="74" r="3" fill="#ffffff"/>
+        <circle cx="52" cy="78" r="2" fill="#ffffff" opacity="0.8"/>
+        <circle cx="68" cy="78" r="2" fill="#ffffff" opacity="0.8"/>
+      </svg>
+    </div>
+
+    <div class="cover-title-container">
+      <div class="report-badge">Academic Project Report</div>
+      <div class="cover-title">Clean Water and Sanitation:<br>Water Leakage Reporting App</div>
+      <div class="cover-app-name">(AquaReport Web Portal)</div>
+      
+      <div class="sdg-badge-cover">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        United Nations SDG 6: Clean Water and Sanitation
+      </div>
+    </div>
+
+    <div class="cover-fulfillment">
+      Submitted in partial fulfillment of the academic requirements for the award of the degree of<br>
+      <strong>Bachelor of Technology (B.Tech)</strong> in <strong>Computer Science & Engineering</strong>
+    </div>
+
+    <div class="metadata-card">
+      <div class="metadata-grid">
+        <div class="metadata-label">Candidate Name:</div>
+        <div class="metadata-value">Marella Akash</div>
+
+        <div class="metadata-label">Register / Roll No:</div>
+        <div class="metadata-value">24PA1A05E6</div>
+
+        <div class="metadata-label">Department:</div>
+        <div class="metadata-value">Computer Science & Engineering</div>
+
+        <div class="metadata-label">Course / Program:</div>
+        <div class="metadata-value">B.Tech</div>
+
+        <div class="metadata-label">College / University:</div>
+        <div class="metadata-value">Vishnu Institute Of Technology</div>
+
+        <div class="metadata-label">Academic Year:</div>
+        <div class="metadata-value">2026 – 2027</div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div>Vishnu Institute Of Technology • Bhimavaram - 534202</div>
+      <div>Academic Year 2026 – 2027</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PAGE 2: DECLARATION & TOC ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>Academic Project Report • Vishnu Institute of Technology</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">★</span> Academic Declaration & Certificate</h2>
+    
+    <div class="card card-primary" style="margin-top: 6px;">
+      <p style="margin-bottom: 0;">This is to certify that the project report entitled <strong>"Clean Water and Sanitation: Water Leakage Reporting App (AquaReport)"</strong> submitted by <strong>Marella Akash</strong> (Register No: <strong>24PA1A05E6</strong>) in partial fulfillment of the academic requirements for the degree of <strong>Bachelor of Technology (B.Tech) in Computer Science & Engineering</strong> at <strong>Vishnu Institute Of Technology</strong> during the academic year <strong>2026 – 2027</strong> is a bona fide record of authentic academic work completed in compliance with institutional guidelines.</p>
+    </div>
+
+    <div class="sign-grid" style="margin-top: 18px; margin-bottom: 20px;">
+      <div class="sign-box">
+        <div class="sign-title">Marella Akash</div>
+        <div class="sign-sub">Student Candidate (24PA1A05E6)</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-title">Project Guide / Supervisor</div>
+        <div class="sign-sub">Dept. of Computer Science & Engg.</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-title">Head of Department</div>
+        <div class="sign-sub">Vishnu Institute Of Technology</div>
+      </div>
+    </div>
+
+    <h2><span class="sec-num">📋</span> Table of Contents</h2>
+    
+    <div class="toc-container">
+      <div class="toc-item">
+        <span class="toc-title">1. Abstract</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 3</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">2. Introduction</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 3</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">3. Problem Statement</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 4</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">4. Objectives</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 4</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">5. Existing System & Disadvantages</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 4</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">6. Proposed System & Advantages</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 5</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">7. Technologies Used</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 5</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">8. System Architecture & Modules</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 6</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">9. System Workflow</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 7</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">10. Relevance to UN SDG 6 (Clean Water & Sanitation)</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 8</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">11. Testing and Verification Results</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 9</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">12. Limitations</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 10</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">13. Future Enhancements</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 10</span>
+      </div>
+      <div class="toc-item">
+        <span class="toc-title">14. Conclusion & Assessment Signatures</span>
+        <span class="toc-dots"></span>
+        <span class="toc-num">Page 10</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 2 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 3: ABSTRACT & INTRODUCTION ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>1. Abstract & 2. Introduction • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">1</span> Abstract</h2>
+    <p>Water scarcity is one of the most critical global challenges of the 21st century. Despite significant public investments in water purification and treatment, a staggering volume of treated municipal water is lost due to leakages, pipeline fractures, broken public standposts, and uncontrolled water tank overflows before reaching consumers.</p>
+    
+    <p>This project presents <strong>AquaReport</strong>, a beginner-friendly Flutter Web application designed to empower citizens to report water leakages directly to a central monitoring interface. The application directly supports <strong>United Nations Sustainable Development Goal 6 (SDG 6): Clean Water and Sanitation</strong>.</p>
+    
+    <p>Built using the Flutter framework and Dart, the application implements a responsive Material Design 3 user interface with in-memory session state management. Key features include an interactive dashboard displaying live key performance indicators (Total, Pending, In Progress, Resolved), a validated reporting form with automated Complaint ID generation, a searchable and filterable complaints catalog, an ID tracking screen, and a demonstration control module enabling examiners to evaluate dynamic state synchronization. Automated unit and widget tests were developed to ensure system stability and layout responsiveness across desktop and mobile browsers.</p>
+
+    <div class="grid-2">
+      <div class="stat-card">
+        <div class="val">SDG 6</div>
+        <div class="lbl">United Nations Goal Alignment</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">100%</div>
+        <div class="lbl">Automated Test Pass Rate</div>
+      </div>
+    </div>
+
+    <h2><span class="sec-num">2</span> Introduction</h2>
+    <p>Clean water is essential for human life, sanitation, and sustainable human settlements. Sustainable Development Goal 6 established by the United Nations aims to guarantee universal access to safe water and sanitation by 2030. However, urban water distribution networks in developing and developed nations frequently experience severe physical water losses—termed in civil engineering as <strong>Non-Revenue Water (NRW)</strong>.</p>
+
+    <p>The primary root cause of prolonged water loss is delayed detection. Municipal maintenance departments cannot monitor every street, alley, and pipeline junction round the clock. Citizens, conversely, witness water leakages daily in their neighborhoods but lack a quick, friction-free mechanism to report them without bureaucratic overhead, login barriers, or lengthy call-center waiting times.</p>
+
+    <p>The <strong>Clean Water and Sanitation: Water Leakage Reporting App</strong> was conceived as an academic software engineering project to solve this communication gap. By creating an intuitive, cross-platform web portal accessible from any standard browser, citizens can log an observed leakage in under one minute, receive a unique tracking identifier, and monitor resolution progress transparently.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 3 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 4: PROBLEM STATEMENT, OBJECTIVES & EXISTING SYSTEM ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>3. Problem, 4. Objectives & 5. Existing System • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">3</span> Problem Statement</h2>
+    <p>Traditional municipal water distribution networks suffer from four severe systemic deficiencies:</p>
+
+    <div class="card card-warning">
+      <ol style="margin-bottom: 0;">
+        <li><strong>Prolonged Leakage Lifespans:</strong> Underground pipe fissures and broken public taps frequently spew treated drinking water for days or weeks before routine utility inspections identify them.</li>
+        <li><strong>High Barrier to Reporting:</strong> Citizens often need to visit municipal offices in person or navigate complex telephone hotlines that lack ticket tracking, feedback, or accountability.</li>
+        <li><strong>Lack of Transparency:</strong> Once a citizen reports a complaint, there is rarely any feedback mechanism to verify if the issue has been inspected, dispatched, or resolved.</li>
+        <li><strong>Loss of Potable Water and Quality Degradation:</strong> Water gushing from high-pressure mains undermines road foundations, while depressurization during supply cuts allows contaminated groundwater to infiltrate drinking water distribution pipes, threatening public health.</li>
+      </ol>
+    </div>
+
+    <h2><span class="sec-num">4</span> Objectives</h2>
+    <p>The core objectives of the AquaReport application are:</p>
+    <ul>
+      <li><strong>Simplified Reporting:</strong> Implement a clean, responsive web form requiring no login credentials, enabling any citizen to report a leak in under 60 seconds.</li>
+      <li><strong>Automated Ticket Assignment:</strong> Generate an unambiguous, unique Complaint Reference ID (e.g., <code>WLR-1009</code>) for every submission to facilitate tracking.</li>
+      <li><strong>Real-Time Dynamic Metrics:</strong> Provide an interactive dashboard aggregating complaints into Total, Pending, In Progress, and Resolved categories with instant updates upon status modifications.</li>
+      <li><strong>Search and Status Filtering:</strong> Offer instant text search (by ID, locality, or citizen name) and chip-based status filtering.</li>
+      <li><strong>Interactive Demonstration Controls:</strong> Incorporate testing controls directly within the complaint details screen to permit evaluators to test dynamic data propagation across screens without backend database setups.</li>
+      <li><strong>SDG 6 Advocacy:</strong> Educate community members on water-saving facts, leak volume prevention, and civic conservation responsibility.</li>
+    </ul>
+
+    <h2><span class="sec-num">5</span> Existing System</h2>
+    <p>Conventional municipal systems rely on physical registers at zonal offices, IVR telephone hotlines, or unstructured social media tags.</p>
+
+    <div class="card card-warning" style="margin-top: 4px;">
+      <div style="font-weight: 700; color: #b45309; margin-bottom: 3px;">Disadvantages of the Existing System:</div>
+      <ul style="margin-bottom: 0;">
+        <li><strong>No Direct Incident Classification:</strong> Lacks standardized problem tags and structured severity indicators.</li>
+        <li><strong>No Instant Tracking ID:</strong> Citizens do not receive a verifiable reference code to trace progress.</li>
+        <li><strong>High Administrative Overhead:</strong> Manual entry is prone to record loss, duplication, and prolonged delays.</li>
+        <li><strong>Zero Community Visibility:</strong> Neighbors cannot see existing reports, causing duplicate calls or complete bystander inaction.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 4 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 5: PROPOSED SYSTEM & TECHNOLOGIES ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>6. Proposed System & 7. Technologies Used • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">6</span> Proposed System</h2>
+    <p>The proposed <strong>AquaReport</strong> Flutter Web Application replaces disjointed reporting channels with a unified, lightweight, client-side digital portal.</p>
+
+    <div class="card card-success">
+      <div style="font-weight: 700; color: #047857; margin-bottom: 4px;">Advantages of the Proposed System:</div>
+      <ul style="margin-bottom: 0;">
+        <li><strong>Zero Installation Barrier:</strong> Runs directly in any web browser on desktop, tablet, or mobile phone.</li>
+        <li><strong>Structured Data Capture:</strong> Captures citizen name, location address, leakage category, problem narrative, observation date, and visual simulation tags.</li>
+        <li><strong>Immediate Confirmation:</strong> Displays an instant confirmation dialog with the generated Complaint ID.</li>
+        <li><strong>Transparent Progress Stepper:</strong> Visual timeline illustrating whether a complaint is <em>Reported</em>, <em>In Progress</em>, or <em>Resolved</em>.</li>
+        <li><strong>Synchronized State:</strong> Status modifications on any individual complaint immediately recalculate and reflect on dashboard KPI cards and list screens via Flutter's reactive <code>ChangeNotifier</code>.</li>
+      </ul>
+    </div>
+
+    <h2><span class="sec-num">7</span> Technologies Used</h2>
+    <p>The project employs modern, industry-standard web compilation technologies within the Dart and Flutter ecosystem:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 28%;">Technology / Component</th>
+          <th style="width: 24%;">Version / Level</th>
+          <th style="width: 48%;">Role in Project Architecture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontend Framework</strong></td>
+          <td>Flutter 3.47.2</td>
+          <td>Cross-platform UI engine targeting high-performance Web compilation.</td>
+        </tr>
+        <tr>
+          <td><strong>Programming Language</strong></td>
+          <td>Dart 3.13.2</td>
+          <td>Type-safe client language with sound null safety.</td>
+        </tr>
+        <tr>
+          <td><strong>Design System</strong></td>
+          <td>Material Design 3 (M3)</td>
+          <td>Modern design language with dynamic colors, elevation, and typography.</td>
+        </tr>
+        <tr>
+          <td><strong>State Management</strong></td>
+          <td>Pure Flutter SDK</td>
+          <td>Built-in <code>ChangeNotifier</code> singleton with <code>AnimatedBuilder</code> / <code>ListenableBuilder</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>Build & Compilation</strong></td>
+          <td>Dart2JS / Wasm</td>
+          <td>Production static HTML, JS canvas, and asset compilation.</td>
+        </tr>
+        <tr>
+          <td><strong>Development Environment</strong></td>
+          <td>VS Code / Terminal CLI</td>
+          <td>Integrated development, debugging, and command execution.</td>
+        </tr>
+        <tr>
+          <td><strong>Automated Testing</strong></td>
+          <td><code>flutter_test</code> SDK</td>
+          <td>Comprehensive Unit testing and UI Widget flow validation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 5 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 6: ARCHITECTURE & MODULES ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>8. System Architecture & Modules • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">8</span> System Architecture & Modules</h2>
+    <p>The system follows a clean, decoupled modular architecture where the user presentation layer communicates through a reactive singleton service down to an in-memory repository:</p>
+
+    <div class="diagram-container">
+      <div style="font-weight: 700; color: #0f172a; font-size: 8.8pt; text-align: center; margin-bottom: 6px;">
+        SYSTEM ARCHITECTURE BLOCK DIAGRAM
+      </div>
+
+      <svg width="100%" height="165" viewBox="0 0 680 165" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- User Tier -->
+        <rect x="220" y="4" width="240" height="28" rx="5" fill="#0f172a"/>
+        <text x="340" y="22" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">Citizen / Evaluator (Web Browser)</text>
+        
+        <line x1="340" y1="32" x2="340" y2="44" stroke="#0284c7" stroke-width="2"/>
+        <polygon points="340,48 336,41 344,41" fill="#0284c7"/>
+
+        <!-- Router Shell -->
+        <rect x="25" y="49" width="630" height="52" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+        <text x="340" y="63" fill="#0369a1" font-size="9" font-weight="bold" text-anchor="middle">Main Navigation Shell & Tab Router (MainShell)</text>
+        
+        <!-- Screen Boxes -->
+        <rect x="35" y="70" width="92" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="81" y="85" fill="#1e293b" font-size="7.8" font-weight="bold" text-anchor="middle">Dashboard (Home)</text>
+
+        <rect x="137" y="70" width="92" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="183" y="85" fill="#1e293b" font-size="7.8" font-weight="bold" text-anchor="middle">Report Form</text>
+
+        <rect x="239" y="70" width="98" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="288" y="85" fill="#1e293b" font-size="7.8" font-weight="bold" text-anchor="middle">Complaints Catalog</text>
+
+        <rect x="347" y="70" width="90" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="392" y="85" fill="#1e293b" font-size="7.8" font-weight="bold" text-anchor="middle">Track by ID</text>
+
+        <rect x="447" y="70" width="95" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="494" y="85" fill="#1e293b" font-size="7.8" font-weight="bold" text-anchor="middle">Details & Demo</text>
+
+        <rect x="552" y="70" width="92" height="24" rx="3" fill="#ffffff" stroke="#cbd5e1"/>
+        <text x="598" y="85" fill="#1e293b" font-size="7.8" font-weight="bold" text-anchor="middle">About SDG 6</text>
+
+        <line x1="340" y1="101" x2="340" y2="112" stroke="#0284c7" stroke-width="2"/>
+        <polygon points="340,116 336,109 344,109" fill="#0284c7"/>
+
+        <!-- Service Layer -->
+        <rect x="170" y="117" width="340" height="24" rx="4" fill="#0284c7"/>
+        <text x="340" y="133" fill="#ffffff" font-size="9.5" font-weight="bold" text-anchor="middle">ComplaintService (ChangeNotifier Singleton)</text>
+
+        <line x1="340" y1="141" x2="340" y2="147" stroke="#0284c7" stroke-width="1.5"/>
+
+        <!-- In-memory registry -->
+        <rect x="200" y="148" width="280" height="17" rx="3" fill="#f1f5f9" stroke="#94a3b8"/>
+        <text x="340" y="160" fill="#334155" font-size="8" font-weight="bold" text-anchor="middle">In-Memory Complaint Registry: List&lt;Complaint&gt;</text>
+      </svg>
+    </div>
+
+    <h3>Module Descriptions:</h3>
+    <ol style="margin-bottom: 0;">
+      <li><strong>Dashboard & Summary Module (<code>home_screen.dart</code>, <code>summary_card.dart</code>):</strong> Displays summary cards (Total, Pending, In Progress, Resolved), welcome hero banner, quick report action, recent reports feed, and UN SDG 6 impact facts.</li>
+      <li><strong>Incident Reporting Module (<code>report_leakage_screen.dart</code>):</strong> Manages the input form with field validators (<code>GlobalKey&lt;FormState&gt;</code>), date selector, problem category dropdown, optional photo tag selector, and success dialog with complaint ID generator.</li>
+      <li><strong>Complaints Registry Module (<code>complaints_screen.dart</code>, <code>complaint_card.dart</code>):</strong> Presents all active complaints in reverse chronological order, supporting real-time substring search across multiple fields and status-based filter chips.</li>
+      <li><strong>Complaint Tracking Module (<code>track_complaint_screen.dart</code>):</strong> Provides a specialized search tool allowing users to enter an ID (e.g., <code>WLR-1001</code>) or click demo chips to retrieve live status.</li>
+      <li><strong>Incident Inspection & Demo Module (<code>complaint_details_screen.dart</code>):</strong> Displays complete incident metadata, a visual progress stepper, and interactive status buttons for examiners to toggle status during academic demonstrations.</li>
+      <li><strong>Project Awareness Module (<code>about_screen.dart</code>):</strong> Details problem background, objectives, system workflow steps, and mapping to UN SDG Target 6.1 and 6.4.</li>
+    </ol>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 6 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 7: WORKFLOW ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>9. System Workflow Execution Pipeline • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">9</span> System Workflow</h2>
+    <p>The operational workflow guarantees complete data integrity, instant user feedback, and reactive synchronization without page reloads:</p>
+
+    <div class="diagram-container">
+      <div style="font-weight: 700; color: #0f172a; font-size: 8.8pt; text-align: center; margin-bottom: 6px;">
+        SYSTEM WORKFLOW EXECUTION PIPELINE
+      </div>
+
+      <div class="flow-step">
+        <div class="num">1</div>
+        <div><strong>Citizen Accesses Web App:</strong> Browser loads single-page app displaying live KPI counters (Total, Pending, In Progress, Resolved) and recent incident cards.</div>
+      </div>
+      <div class="flow-arrow">▼</div>
+
+      <div class="flow-step">
+        <div class="num">2</div>
+        <div><strong>Incident Submission:</strong> Citizen enters Name, Locality / Landmark, Leakage Type, and Detailed Narrative into the validated form.</div>
+      </div>
+      <div class="flow-arrow">▼</div>
+
+      <div class="flow-step">
+        <div class="num">3</div>
+        <div><strong>Client-Side Validation & ID Generation:</strong> Form validates non-empty requirements; <code>ComplaintService</code> computes next serial number and constructs unique ID (e.g. <code>WLR-1009</code>).</div>
+      </div>
+      <div class="flow-arrow">▼</div>
+
+      <div class="flow-step">
+        <div class="num">4</div>
+        <div><strong>Registry Storage & Confirmation:</strong> Record is prepended to the central in-memory list (index 0). A confirmation dialog presents the generated Complaint ID.</div>
+      </div>
+      <div class="flow-arrow">▼</div>
+
+      <div class="flow-step">
+        <div class="num">5</div>
+        <div><strong>Tracking & Status Inspection:</strong> Citizen or utility worker tracks status by ID. The progress stepper reflects current state (Reported ➔ In Progress ➔ Resolved).</div>
+      </div>
+      <div class="flow-arrow">▼</div>
+
+      <div class="flow-step">
+        <div class="num">6</div>
+        <div><strong>Viva Demo Status Modification:</strong> Evaluator clicks a status button in Details view. <code>ComplaintService.updateStatus()</code> mutates state and triggers <code>notifyListeners()</code>.</div>
+      </div>
+      <div class="flow-arrow">▼</div>
+
+      <div class="flow-step">
+        <div class="num">7</div>
+        <div><strong>Dynamic Re-render:</strong> All KPI counters, summary badges, and catalog filter chips update synchronously across every screen without page reloads.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 7 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 8: RELEVANCE TO UN SDG 6 ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>10. Relevance to UN SDG 6 • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">10</span> Relevance to UN SDG 6</h2>
+    <p>The United Nations Sustainable Development Goal 6 (SDG 6) seeks to <strong>"Ensure availability and sustainable management of water and sanitation for all"</strong>. AquaReport directly aligns with two critical international targets:</p>
+
+    <div class="card card-primary" style="margin: 12px 0;">
+      <div style="font-weight: 800; color: #0369a1; font-size: 10.5pt; margin-bottom: 6px;">
+        Target 6.1 — Universal and Equitable Access to Safe and Affordable Drinking Water
+      </div>
+      <p>Clean, potable water requires extensive resources to collect, purify, treat with chemicals, and pump through municipal distribution mains. When high-pressure distribution lines rupture or public standposts fracture, treated drinking water is lost before reaching citizens.</p>
+      <p style="margin-bottom: 0;">More critically, when supply lines are depressurized during intermittent distribution schedules, cracked pipes allow surrounding non-potable groundwater, street runoff, and wastewater contaminants to seep into the distribution network. By providing an instantaneous reporting channel, AquaReport drastically truncates pipe repair latency, preserving drinking water purity and protecting public health.</p>
+    </div>
+
+    <div class="card card-primary" style="margin: 12px 0;">
+      <div style="font-weight: 800; color: #0369a1; font-size: 10.5pt; margin-bottom: 6px;">
+        Target 6.4 — Substantially Increase Water-Use Efficiency & Address Water Scarcity
+      </div>
+      <p>Physical water loss within urban distribution networks—classified as Non-Revenue Water (NRW)—accounts for 30% to 50% of total treated water supply in many developing regions. A single standard pipeline break under typical mains pressure (3 bars) discharges approximately <strong>10,000 to 15,000 liters of treated water per day</strong>.</p>
+      <p style="margin-bottom: 0;">Enabling community members to report incidents within minutes transforms thousands of citizens into proactive conservation monitors. This slashes detection cycles from weeks to mere hours, cumulatively saving millions of liters of treated water each year and significantly advancing water-use efficiency.</p>
+    </div>
+
+    <div class="grid-2" style="margin-top: 10px;">
+      <div class="stat-card">
+        <div class="val">10k – 15k L</div>
+        <div class="lbl">Daily Loss Saved Per Major Leak Repaired</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">&lt; 60 Sec</div>
+        <div class="lbl">Frictionless Citizen Reporting Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 8 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 9: TESTING AND VERIFICATION ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>11. Testing and Verification Results • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">11</span> Testing and Verification Results</h2>
+    <p>A comprehensive automated test suite was constructed using the Flutter testing framework (<code>flutter_test</code>) covering service business logic, reactive state transitions, and UI widget trees:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">Test Suite</th>
+          <th style="width: 58%;">Verification Scope & Assertion Target</th>
+          <th style="width: 18%;">Result Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Service Unit Tests</strong></td>
+          <td>Verified initial sample complaints list contains at least 8 predefined realistic records across diverse categories and statuses.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Service Unit Tests</strong></td>
+          <td>Verified that calling <code>addComplaint()</code> places the new record at index 0 and updates <code>totalCount</code> and <code>pendingCount</code>.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Service Unit Tests</strong></td>
+          <td>Verified that <code>filterComplaints()</code> correctly filters by query string and <code>ComplaintStatus</code>.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Service Unit Tests</strong></td>
+          <td>Verified that calling <code>updateStatus()</code> alters the status and triggers notification to listeners via <code>notifyListeners()</code>.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Widget / UI Tests</strong></td>
+          <td>Verified that <code>WaterLeakageApp</code> loads and displays dashboard KPI metrics (Total, Pending, In Progress, Resolved).</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Widget / UI Tests</strong></td>
+          <td>Verified that tab navigation smoothly transitions between Home, Complaints, Track, and About pages.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Widget / UI Tests</strong></td>
+          <td>Verified that Track Complaint screen looks up records and handles both valid IDs and non-existent queries properly.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Static Analysis</strong></td>
+          <td>Executed <code>flutter analyze</code>: zero compiler warnings, zero linter diagnostics, zero errors.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Web Compilation</strong></td>
+          <td>Executed <code>flutter build web</code>: clean compilation of static production assets into <code>build/web/</code>.</td>
+          <td><span class="badge-pass">✓ PASSED</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card card-success" style="text-align: center; font-weight: 700; color: #047857; margin-top: 15px; padding: 12px;">
+      <div style="font-size: 11pt;">Test Execution Summary: 100% Pass Rate (All 8 Automated Test Cases Passed)</div>
+      <div style="font-size: 8.5pt; color: #065f46; margin-top: 3px; font-weight: normal;">
+        Zero Regression • Zero Build Warnings • Production-Ready Static Web Bundle
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 9 of 10</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 10: LIMITATIONS, FUTURE WORK, CONCLUSION & SIGN-OFF ================= -->
+<div class="report-page">
+  <div class="page-header">
+    <span class="brand">AquaReport</span>
+    <span>12. Limitations, 13. Future Scope & 14. Conclusion • Marella Akash (24PA1A05E6)</span>
+  </div>
+
+  <div class="page-body">
+    <h2><span class="sec-num">12</span> Limitations</h2>
+    <p>While AquaReport fulfills all requirements of an academic software demonstration prototype, it possesses certain deliberate architectural simplifications:</p>
+    <ul>
+      <li><strong>Session-Bound Persistence:</strong> Complaint records are stored in client memory during the browser session. Refreshing the browser resets the data to the default sample dataset.</li>
+      <li><strong>Absence of Backend Authentication:</strong> Citizen submission and status updating are open without role-based login to allow uncomplicated evaluation by examiners.</li>
+      <li><strong>No External Cloud / Maps APIs:</strong> To preserve offline reliability and zero operating costs, external mapping APIs (such as Google Maps JS API) and cloud storage buckets were intentionally omitted in favor of self-contained text address capture and curated image tags.</li>
+    </ul>
+
+    <h2><span class="sec-num">13</span> Future Enhancements</h2>
+    <ul>
+      <li><strong>Cloud Database Integration:</strong> Integration with Firebase Firestore or PostgreSQL for persistent cross-device synchronicity.</li>
+      <li><strong>Role-Based Access Control (RBAC):</strong> Dedicated citizen, maintenance contractor, and municipal commissioner portals with secure JWT authentication.</li>
+      <li><strong>OpenStreetMap / GPS Integration:</strong> Auto-detecting coordinates using HTML5 Geolocation and rendering incident clusters on an interactive OpenStreetMap.</li>
+      <li><strong>SMS / Email Alerts:</strong> Automated notifications sent to citizens when a reported leakage status shifts from Pending to In Progress to Resolved.</li>
+      <li><strong>AI Leakage Image Classification:</strong> Automated image analysis using computer vision to estimate leak severity and priority from uploaded photos.</li>
+    </ul>
+
+    <h2><span class="sec-num">14</span> Conclusion</h2>
+    <p>The <strong>Clean Water and Sanitation: Water Leakage Reporting App (AquaReport)</strong> successfully demonstrates how modern, cross-platform technologies like Flutter Web can be harnessed to solve pressing environmental and civic challenges. By providing an accessible, intuitive, and responsive interface, the project empowers everyday citizens to become active guardians of water conservation in their communities.</p>
+
+    <p>The application satisfies all academic software engineering standards: structured component architecture, clean separation of concerns, reactive state synchronization, Material 3 visual appeal, robust automated testing, and comprehensive documentation.</p>
+
+    <div style="margin-top: 15px;">
+      <div style="font-size: 8.5pt; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; text-align: center;">
+        Academic Assessment Signatures & Approvals
+      </div>
+      <div class="sign-grid">
+        <div class="sign-box">
+          <div class="sign-title">Marella Akash</div>
+          <div class="sign-sub">Student Candidate (24PA1A05E6)<br>Dept. of CSE, VIT</div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-title">Project Guide / Supervisor</div>
+          <div class="sign-sub">Department of CSE<br>Vishnu Institute Of Technology</div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-title">Head of Department / Examiner</div>
+          <div class="sign-sub">Department of CSE<br>Vishnu Institute Of Technology</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>AquaReport • Clean Water and Sanitation • Marella Akash (24PA1A05E6)</span>
+    <span class="pg-num">Page 10 of 10</span>
+  </div>
+</div>
+
+</body>
+</html>
